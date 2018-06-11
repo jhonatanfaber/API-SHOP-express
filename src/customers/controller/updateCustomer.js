@@ -8,7 +8,7 @@ module.exports = {
 
 function updateCustomer(req, res){
     var id = req.params.id; 
-    var exist = checkIfExist(id);
+    var exist = checkIfUserExists(id);
     if(!exist){
         return res.sendStatus(400)
     }
@@ -23,7 +23,7 @@ function updateCustomer(req, res){
     return res.sendStatus(200);
 }
 
-function checkIfExist(id){
+function checkIfUserExists(id){
     return data.some(user => user.id == id);
 }
 
