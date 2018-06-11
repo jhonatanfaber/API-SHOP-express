@@ -1,7 +1,5 @@
-//var customers = require("../../customers.json")
 const fs = require("fs")
-
-let rawdata = fs.readFileSync('./src/customers.json');
+let rawdata = fs.readFileSync('./src/customers.json', 'utf8');
 var data = JSON.parse(rawdata)
  
 

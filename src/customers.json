@@ -1,11 +1,5 @@
 [
   {
-    "name": "jhoni",
-    "username": "faber",
-    "id": "1",
-    "photo": "url"
-  },
-  {
     "name": "ana",
     "username": "navarro",
     "id": "2",
@@ -15,6 +9,12 @@
     "name": "juani",
     "username": "jufaberes",
     "id": "jufaberes1527851367052",
+    "photo": "url"
+  },
+  {
+    "name": "jhoni",
+    "username": "faber",
+    "id": "1",
     "photo": "url"
   }
 ]
