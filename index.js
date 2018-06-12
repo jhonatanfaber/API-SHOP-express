@@ -18,6 +18,13 @@ app.use(function (req, res, next) {
     next();
 });
 
+/** Secure output  */
+app.use("/customers", function (req, res, next) {
+    res.set("content-type", "application/json")
+    next();
+});
+
+/** Routes */
 app.use("/customers", customerController);
 
 
