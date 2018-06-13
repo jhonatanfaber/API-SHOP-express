@@ -5,5 +5,5 @@ module.exports = {
 }
  
 function getAllCustomers(req,res){
-    res.send(customers)
+    res.status(200).send(customers);
 }

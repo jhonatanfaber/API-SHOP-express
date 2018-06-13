@@ -13,7 +13,7 @@ function createNewCustomer (req, res){
     let newCustomerJSON = JSON.stringify(data, null, 2);  
     fs.writeFileSync('./src/customers.json', newCustomerJSON);
     newCustomer = {}
-    return res.sendStatus(200)
+    return res.sendStatus(201)
 }
 
 function createUser(req){

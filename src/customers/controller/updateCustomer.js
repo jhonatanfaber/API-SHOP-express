@@ -20,7 +20,7 @@ function updateCustomer(req, res){
     let newCustomerJSON = JSON.stringify(filteredList, null, 2); 
     fs.writeFileSync('./src/customers.json', newCustomerJSON);
     updatedUser = {};
-    return res.sendStatus(200);
+    return res.sendStatus(204);
 }
 
 function checkIfUserExists(id){

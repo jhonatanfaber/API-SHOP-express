@@ -17,7 +17,7 @@ function deleteCustomer(req, res){
     data.push(filteredUserList);
     let newCustomerJSON = JSON.stringify(filteredUserList, null, 2); 
     fs.writeFileSync('./src/customers.json', newCustomerJSON);
-    return res.sendStatus(200);
+    return res.sendStatus(204);
 }
 
 function checkIfUserExists(id){
