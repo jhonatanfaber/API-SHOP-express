@@ -8,9 +8,8 @@ var remove = require("./controller/deleteCustomer");
 
 router.get("/", all.getAllCustomers);
 router.get("/:id", id.getCustomerByID);
-router.post("/", newCustomer.createNewCustomer);
+router.post("/", newCustomer.createNewCustomer); 
 router.put("/:id", update.updateCustomer);
 router.delete("/:id", remove.deleteCustomer);
-
 
 module.exports = router;
