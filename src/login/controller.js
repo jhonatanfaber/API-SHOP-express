@@ -1,8 +1,8 @@
-var crypto = require('crypto');
-var jwt = require("jsonwebtoken");
+const crypto = require('crypto');
+const jwt = require("jsonwebtoken");
 const fs = require("fs")
 
-let rawdata = fs.readFileSync('./src/users.json', 'utf8');
+const rawdata = fs.readFileSync('./src/users.json', 'utf8');
 var data = JSON.parse(rawdata)
 
 module.exports = {
@@ -10,12 +10,12 @@ module.exports = {
 }
 
 function signIn(req, res, next) {
-    var username = req.body.username;
-    var rawPassword = req.body.password;
+    let username = req.body.username;
+    let rawPassword = req.body.password;
     let hashedPassword = crypto.createHash('sha256').update(rawPassword).digest("hex")
-    var validUser = validateUser(username, hashedPassword);
+    let validUser = validateUser(username, hashedPassword);
     if (validUser) {
-        var token = jwt.sign({ username }, "anypk", { expiresIn: '24h' });
+        let token = jwt.sign({ username }, "anypk", { expiresIn: '24h' });
         return res.status(200).send({ token });
     }
     return res.status(400).send("Invalid Credentials");

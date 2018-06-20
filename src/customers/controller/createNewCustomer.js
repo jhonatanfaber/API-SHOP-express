@@ -1,5 +1,5 @@
 const fs = require("fs")
-let rawdata = fs.readFileSync('./src/customers.json', 'utf8');
+const rawdata = fs.readFileSync('./src/customers.json', 'utf8');
 var data = JSON.parse(rawdata)
  
 
@@ -8,7 +8,7 @@ module.exports = {
 }
 
 function createNewCustomer (req, res){
-    var newCustomer = createUser(req)
+    let newCustomer = createUser(req)
     data.push(newCustomer)
     let newCustomerJSON = JSON.stringify(data, null, 2);  
     fs.writeFileSync('./src/customers.json', newCustomerJSON);
@@ -19,7 +19,7 @@ function createNewCustomer (req, res){
 function createUser(req){
     const {surname, name, photo} = req.body;
 
-    var newCustomer = {
+    let newCustomer = {
         name : name,
         surname : surname,
         id : name + surname + Date.now(),

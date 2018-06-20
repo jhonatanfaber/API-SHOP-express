@@ -1,5 +1,5 @@
 const fs = require('fs');
-let rawdata = fs.readFileSync('./src/customers.json', 'utf8');
+const rawdata = fs.readFileSync('./src/customers.json', 'utf8');
 var data = JSON.parse(rawdata)
 
 module.exports = {
@@ -7,14 +7,14 @@ module.exports = {
 }
 
 function updateCustomer(req, res){
-    var id = req.params.id; 
-    var exist = checkIfUserExists(id);
+    let id = req.params.id; 
+    let exist = checkIfUserExists(id);
     if(!exist){
         return res.sendStatus(400)
     }
 
-    var updatedUser = createEditedUser(req, id);
-    var filteredList = data.filter(user => user.id != id);
+    let updatedUser = createEditedUser(req, id);
+    let filteredList = data.filter(user => user.id != id);
     filteredList.push(updatedUser);
 
     let newCustomerJSON = JSON.stringify(filteredList, null, 2); 
@@ -28,7 +28,7 @@ function checkIfUserExists(id){
 }
 
 function createEditedUser(req, id){
-    var updatedUser = {};
+    let updatedUser = {};
     let user = data.find(user => user.id == id);
     let createdBy = user.createdBy;
 

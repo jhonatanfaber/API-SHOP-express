@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var all = require("./controller/getAllCustomers");
-var id = require("./controller/getCustomerByID");
-var newCustomer = require("./controller/createNewCustomer");
-var update = require("./controller/updateCustomer");
-var remove = require("./controller/deleteCustomer");
+const express = require('express');
+const router = express.Router();
+const all = require("./controller/getAllCustomers");
+const id = require("./controller/getCustomerByID");
+const newCustomer = require("./controller/createNewCustomer");
+const update = require("./controller/updateCustomer");
+const remove = require("./controller/deleteCustomer");
 
 router.get("/", all.getAllCustomers);
 router.get("/:id", id.getCustomerByID);

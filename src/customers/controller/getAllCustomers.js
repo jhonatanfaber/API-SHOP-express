@@ -1,4 +1,4 @@
-var customers = require("./../../customers.json");
+const customers = require("./../../customers.json");
 
 module.exports = {
     getAllCustomers : getAllCustomers

@@ -1,13 +1,13 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser')
-var helmet = require('helmet')
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser')
+const helmet = require('helmet')
 
-var customerController = require("./src/customers/index.js");
-var authorization = require("./src/auth/authorization.js"); 
-var headers = require("./src/auth/secure-headers.js"); 
-var output = require("./src/auth/secure-output.js"); 
-var userController = require("./src/login/index.js");
+const customerController = require("./src/customers/index.js");
+const authorization = require("./src/auth/authorization.js"); 
+const headers = require("./src/auth/secure-headers.js"); 
+const output = require("./src/auth/secure-output.js"); 
+const userController = require("./src/login/index.js");
 
 const PORT = 3000;
 
