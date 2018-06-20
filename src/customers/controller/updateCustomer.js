@@ -29,14 +29,16 @@ function checkIfUserExists(id){
 
 function createEditedUser(req, id){
     var updatedUser = {};
-    var user = data.find(user => user.id == id);
-    var username = user.username;
+    let user = data.find(user => user.id == id);
+    let createdBy = user.createdBy;
 
     updatedUser = {
         name : req.body.name,
-        username : username,
+        surname : req.body.surname,
         id : id,
-        photo : req.body.photo 
+        photo : req.body.photo ,
+        createdBy : createdBy,
+        lastChangeBy : req.decoded.username
     }
     return updatedUser;
 }

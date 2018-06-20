@@ -1,23 +1,34 @@
 [
   {
     "name": "ana",
-    "username": "navarro",
-    "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+    "surname": "navarro",
     "id": "2",
-    "photo": "url"
+    "photo": "url",
+    "createdBy": "faber",
+    "lastChangeBy": "faber"
   },
   {
     "name": "juani",
-    "username": "jufaberes",
-    "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+    "surname": "perez",
     "id": "jufaberes1527851367052",
-    "photo": "url"
+    "photo": "url",
+    "createdBy": "ivansan",
+    "lastChangeBy": "faber"
   },
   {
-    "name": "jhoni",
-    "username": "faber",
-    "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+    "name": "jaime",
+    "surname": "gonzalez",
     "id": "1",
-    "photo": "url"
+    "photo": "url",
+    "createdBy": "faber",
+    "lastChangeBy": "faber"
+  },
+  {
+    "name": "paquito",
+    "surname": "moreno",
+    "id": "pacoramirez1529493700344",
+    "photo": "url",
+    "createdBy": "ivansan",
+    "lastChangeBy": "faber"
   }
 ]

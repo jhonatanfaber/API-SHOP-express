@@ -17,11 +17,15 @@ function createNewCustomer (req, res){
 }
 
 function createUser(req){
+    const {surname, name, photo} = req.body;
+
     var newCustomer = {
-        name : req.body.name,
-        username : req.body.username,
-        id : req.body.username + Date.now(),
-        photo : req.body.photo
+        name : name,
+        surname : surname,
+        id : name + surname + Date.now(),
+        photo : photo,
+        createdBy : req.decoded.username,
+        lastChangeBy : req.decoded.username
     }
     return newCustomer
 }
