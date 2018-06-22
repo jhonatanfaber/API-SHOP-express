@@ -16,7 +16,7 @@ function deleteUser(req, res) {
         fs.writeFileSync('./src/users.json', newUserJSON);
         return res.sendStatus(204);
     }
-    return res.sendStatus(400)
+    return res.sendStatus(404)
 
 }
 

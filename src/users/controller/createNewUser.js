@@ -1,4 +1,5 @@
 const fs = require("fs")
+const crypto = require('crypto');
 const rawData = fs.readFileSync('./src/users.json','utf8')
 var data = JSON.parse(rawData)
 
@@ -21,8 +22,12 @@ function createUser(req){
     return newUser = {
         name,
         username,
-        password,
+        password : hashPassword(password),
         id : username + Date.now(),
         admin
     }
+}
+
+function hashPassword(pass) {
+    return crypto.createHash('sha256').update(pass).digest('hex');
 }
