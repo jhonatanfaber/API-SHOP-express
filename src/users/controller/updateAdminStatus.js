@@ -4,20 +4,20 @@ const rawData = fs.readFileSync("./src/users.json")
 var data = JSON.parse(rawData)
 
 module.exports = {
-    updateUser
+    updateAdminStatus
 }
 
-function updateUser(req, res) {
+function updateAdminStatus(req, res) {
     let id = req.params.id
     let userExists = checkIfUserExists(id)
     if (userExists) {
-        let updatedUser = updateInfo(req, id)
+        let updatedStatus = updateStatus(req, id)
         let filteredList = data.filter(user => user.id != id)
-        filteredList.push(updatedUser)
+        filteredList.push(updatedStatus)
 
         let newUserJSON = JSON.stringify(filteredList, null, 2)
         fs.writeFileSync("./src/users.json", newUserJSON)
-        updatedUser = {}
+        updatedStatus = {}
         return res.sendStatus(204)
     }
     return res.sendStatus(404)
@@ -27,18 +27,14 @@ function checkIfUserExists(id) {
     return data.some(user => user.id == id)
 }
 
-function updateInfo(req, id) {
-    let { name, password, admin } = req.body
+function updateStatus(req, id) {
     let actualUserInfo = data.find(user => user.id == id);
-    return updatedUser = {
-        name,
+    return updatedStatus = {
+        name: actualUserInfo.name,
         username: actualUserInfo.username,
-        password: hashPassword(password),
+        password: actualUserInfo.password,
         id,
-        admin
+        admin: req.body.admin
     }
 }
 
-function hashPassword(pass) {
-    return crypto.createHash('sha256').update(pass).digest('hex');
-}
