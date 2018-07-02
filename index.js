@@ -8,6 +8,7 @@ const authorization = require("./src/auth/authorization.js");
 const headers = require("./src/auth/secure-headers.js"); 
 const output = require("./src/auth/secure-output.js"); 
 const customerController = require("./src/customers/index.js");
+const adminAuthentication = require("./src/auth/adminAuthentication.js")
 const userController = require("./src/users/index.js");
 
 const PORT = 3000;
@@ -22,6 +23,7 @@ app.use(authorization);
 app.use(headers);
 app.use(output);
 app.use("/customers", customerController);
+app.use(adminAuthentication)
 app.use("/users", userController);
 
 app.listen(PORT, () => { 

@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
         if (err) {
             res.status(403).json({ message: "Wrong Token" });
         } else {
-            // returns { username: 'X', iat: time, exp: time }
+            // returns { username: 'X', iat: time, exp: time }, see login/controller
             req.decoded = decod;
             next();
         }
