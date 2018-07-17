@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
 
+
 const loginController = require("./src/login/index.js");
 const authorization = require("./src/auth/authorization.js"); 
 const headers = require("./src/auth/secure-headers.js"); 
@@ -10,6 +11,10 @@ const output = require("./src/auth/secure-output.js");
 const customerController = require("./src/customers/index.js");
 const adminAuthentication = require("./src/auth/adminAuthentication.js")
 const userController = require("./src/users/index.js");
+
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/apishopDB');
+
 
 const PORT = 3000;
 
