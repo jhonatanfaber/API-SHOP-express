@@ -1,9 +1,12 @@
-const customers = require("./../../customers.json");
+const CustomerModel = require("./../model")
 
 module.exports = {
-    getAllCustomers : getAllCustomers
+    getAllCustomers: getAllCustomers
 }
- 
-function getAllCustomers(req,res){
-    res.status(200).send(customers);
+
+function getAllCustomers(req, res) {
+    CustomerModel.find()
+        .then(response => {
+            res.status(200).send(response)
+        })
 }

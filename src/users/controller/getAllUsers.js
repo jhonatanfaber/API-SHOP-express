@@ -1,4 +1,3 @@
-const users = require("./../../users.json");
 const UserModel = require('./../model');
 
 module.exports = {

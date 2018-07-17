@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
 
-
 const loginController = require("./src/login/index.js");
 const authorization = require("./src/auth/authorization.js"); 
 const headers = require("./src/auth/secure-headers.js"); 
