@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
+const morgan = require("morgan")
 
 const loginController = require("./src/login/index.js");
 const authorization = require("./src/auth/authorization.js"); 
@@ -17,6 +18,7 @@ mongoose.connect('mongodb://localhost/apishopDB');
 
 const PORT = 3000;
 
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
