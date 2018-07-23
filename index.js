@@ -5,9 +5,9 @@ const helmet = require('helmet')
 const morgan = require("morgan")
 
 const loginController = require("./src/login/index.js");
-const authorization = require("./src/auth/authorization.js"); 
-const headers = require("./src/auth/secure-headers.js"); 
-const output = require("./src/auth/secure-output.js"); 
+const authorization = require("./src/auth/authorization.js");
+const headers = require("./src/auth/secure-headers.js");
+const output = require("./src/auth/secure-output.js");
 const customerController = require("./src/customers/index.js");
 const adminAuthentication = require("./src/auth/adminAuthentication.js")
 const userController = require("./src/users/index.js");
@@ -32,6 +32,21 @@ app.use("/customers", customerController);
 app.use(adminAuthentication)
 app.use("/users", userController);
 
-app.listen(PORT, () => { 
+// TODO:refactor
+app.use((req, res, next) => {
+    const error = new Error("Not found")
+    error.status = 404
+    next(error)
+})
+
+app.use((error, req, res, next) => {
+    res.status(error.status || 500)
+    res.json({
+        error : error.message
+    })
+})
+
+
+app.listen(PORT, () => {
     console.log(`Running at http://localhost:${PORT}`);
 })
