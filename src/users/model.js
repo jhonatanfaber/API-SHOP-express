@@ -8,6 +8,6 @@ let userSchema = mongoose.Schema({
     admin : Boolean
 })
 
-let User = mongoose.model('user', userSchema)
+let User = mongoose.model('User', userSchema)
 
 module.exports = User
