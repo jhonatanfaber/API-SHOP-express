@@ -17,8 +17,10 @@ function createNewUser(req, res, next) {
         id: username + Date.now(),
         admin: admin
     })
-    user.save()
-    res.sendStatus(201);
+    user.save(((error,newUser) => {
+        if (error) return res.sendStatus(404)
+        return res.status(201).json(newUser);
+    }))
 }
 
 function hashPassword(password) {

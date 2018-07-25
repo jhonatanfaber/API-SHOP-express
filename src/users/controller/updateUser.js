@@ -1,7 +1,5 @@
-const fs = require("fs")
 const crypto = require('crypto');
-const rawData = fs.readFileSync("./src/users.json")
-var data = JSON.parse(rawData)
+const UserModel = require("./../model")
 
 module.exports = {
     updateUser
@@ -9,34 +7,22 @@ module.exports = {
 
 function updateUser(req, res) {
     let id = req.params.id
-    let userExists = checkIfUserExists(id)
-    if (userExists) {
-        let updatedUser = updateInfo(req, id)
-        let filteredList = data.filter(user => user.id != id)
-        filteredList.push(updatedUser)
-
-        let newUserJSON = JSON.stringify(filteredList, null, 2)
-        fs.writeFileSync("./src/users.json", newUserJSON)
-        updatedUser = {}
-        return res.sendStatus(204)
-    }
-    return res.sendStatus(404)
-}
-
-function checkIfUserExists(id) {
-    return data.some(user => user.id == id)
-}
-
-function updateInfo(req, id) {
     let { name, password, admin } = req.body
-    let actualUserInfo = data.find(user => user.id == id);
-    return updatedUser = {
-        name,
-        username: actualUserInfo.username,
-        password: hashPassword(password),
-        id,
-        admin
-    }
+
+    UserModel.findOne({ id: id })
+        .then((document) => {
+            if (document) {
+                document.name = name,
+                document.password = hashPassword(password),
+                document.admin = admin
+                document.save()
+                return res.sendStatus(204)
+            }
+            return res.status(404).json({ Message: "No valid user ID" })
+        })
+        .catch(error => {
+            return res.sendStatus(400)
+        })
 }
 
 function hashPassword(pass) {

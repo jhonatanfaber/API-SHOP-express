@@ -9,4 +9,7 @@ function getAllUsers(req, res) {
         .then(response => {
             res.status(200).send(response);
         })
+        .catch(error => {
+            res.sendStatus(404)
+        })
 }
