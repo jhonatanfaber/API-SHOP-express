@@ -1,7 +1,4 @@
-const fs = require("fs")
 const crypto = require('crypto');
-const rawData = fs.readFileSync('./src/users.json', 'utf8')
-var data = JSON.parse(rawData)
 const UserModel = require('./../model');
 
 module.exports = {
