@@ -1,25 +1,19 @@
-const fs = require("fs");
-const rawdata = fs.readFileSync('./src/customers.json', 'utf8');
-var data = JSON.parse(rawdata)
+const CustomerModel = require("./../model")
 
 module.exports = {
-    deleteCustomer : deleteCustomer
+    deleteCustomer: deleteCustomer
 }
 
-function deleteCustomer(req, res){
-    let id = req.params.id;
-    let exist = checkIfUserExists(id);
-    if(!exist){
-        return res.sendStatus(400)
-    }
-
-    let filteredUserList = data.filter(user => user.id != id);
-    data.push(filteredUserList);
-    let newCustomerJSON = JSON.stringify(filteredUserList, null, 2); 
-    fs.writeFileSync('./src/customers.json', newCustomerJSON);
-    return res.sendStatus(204);
-}
-
-function checkIfUserExists(id){
-    return data.some(user => user.id == id);
+function deleteCustomer(req, res) {
+    CustomerModel.remove({ id: req.params.id })
+        .then(response => {
+            console.log(response);
+            // TODO: check if user exists, response returns --> { n: 0, ok: 1 }
+            //if (response) 
+            return res.sendStatus(204);
+            //return res.status(404).json({ Message: "No valid user ID" })
+        })
+        .catch(error => {
+            return res.sendStatus(400)
+        })
 }
