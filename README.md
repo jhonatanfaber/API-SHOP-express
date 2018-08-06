@@ -15,5 +15,27 @@ username: ivansan
 password 321
 ```
 
-Log in with your username and password and you will be given a token
+Log in with your username and password and you will be given a token. You need to paste this token in the request header(x-api-token header) so that the system will know your privileges as a user.
+
+Only Admins can create, update, delete and list another users. No Admins can do the same but just with customers. The customer has a reference to the user who created it and another reference to the last user who modified it. 
+
+• Admin Endpoints
+
+```
+GET /users
+POST /users
+DELETE /users
+UPDATE /users/id
+PATCH /users/id
+```
+
+• User Endpoints
+
+```
+GET /customers
+GET /customers/id
+POST /customers
+DELETE /customer
+UPDATE /users/id
+```
 

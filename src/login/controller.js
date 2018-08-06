@@ -6,13 +6,11 @@ module.exports = {
     signIn
 }
 
-
 function signIn(req, res, next) {
     let username = req.body.username;
     let rawPassword = req.body.password;
     let hashedPassword = crypto.createHash('sha256').update(rawPassword).digest("hex")
-
-    User.find({username})
+    User.findOne({username: username})
     .then(response => {
         if(response.username == username && response.password == hashedPassword){
             let token = jwt.sign({ username }, "anypk", { expiresIn: '24h' });
