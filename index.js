@@ -6,7 +6,7 @@ const morgan = require("morgan")
 const cors = require('cors')
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const config  = dotenv.load().parsed
+dotenv.load()
 
 const loginController = require("./src/login/index.js");
 const authorization = require("./src/auth/authorization.js");
@@ -16,7 +16,7 @@ const customerController = require("./src/customers/index.js");
 const adminAuthentication = require("./src/auth/adminAuthentication.js")
 const userController = require("./src/users/index.js");
 
-mongoose.connect('mongodb://localhost/' + config.MONGO_NAME);
+mongoose.connect('mongodb://localhost/' + process.env.MONGO_NAME);
 
 app.use(morgan('dev'));
 app.use(express.json()); 
@@ -47,6 +47,6 @@ app.use((error, req, res, next) => {
     })
 })
 
-app.listen(config.PORT, () => {
-    console.log(`Running at http://localhost:${config.PORT}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Running at http://localhost:${process.env.PORT}`);
 })

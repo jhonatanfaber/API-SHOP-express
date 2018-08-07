@@ -3,8 +3,8 @@
 #### Before Starting
 Make sure you run setup.js to load local environment variables (node setup.js) and edit the .env file NOT the .sample-env.
 
-The script simply copies the contents from the .sample-env and creates with them a new file called .env
-By default, the DotEnv library will look for the .env file to set the environment variables
+The script simply copies the contents from the .sample-env and creates a new file called .env 
+By default, the DotEnv library will look for the .env file to set the environment variables.
 
 #### How it works
 
