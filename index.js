@@ -5,6 +5,8 @@ const helmet = require('helmet')
 const morgan = require("morgan")
 const cors = require('cors')
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const config  = dotenv.load().parsed
 
 const loginController = require("./src/login/index.js");
 const authorization = require("./src/auth/authorization.js");
@@ -13,11 +15,8 @@ const output = require("./src/auth/secure-output.js");
 const customerController = require("./src/customers/index.js");
 const adminAuthentication = require("./src/auth/adminAuthentication.js")
 const userController = require("./src/users/index.js");
-const config = require('./.env');
-
 
 mongoose.connect('mongodb://localhost/' + config.MONGO_NAME);
-const PORT = 3000;
 
 app.use(morgan('dev'));
 app.use(express.json()); 
@@ -48,7 +47,6 @@ app.use((error, req, res, next) => {
     })
 })
 
-
-app.listen(PORT, () => {
-    console.log(`Running at http://localhost:${PORT}`);
+app.listen(config.PORT, () => {
+    console.log(`Running at http://localhost:${config.PORT}`);
 })
