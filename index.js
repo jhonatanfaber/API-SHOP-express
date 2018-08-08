@@ -16,7 +16,7 @@ const customerController = require("./src/customers/index.js");
 const adminAuthentication = require("./src/auth/adminAuthentication.js")
 const userController = require("./src/users/index.js");
 
-mongoose.connect('mongodb+srv://faber:qwerty123@cluster0-gx4g2.mongodb.net/' + process.env.MONGO_NAME + '?retryWrites=true'
+mongoose.connect(process.env.MONGO_URI + process.env.MONGO_NAME + '?retryWrites=true'
     , { useNewUrlParser: true }
 );
 
