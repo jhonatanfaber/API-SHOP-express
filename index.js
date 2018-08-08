@@ -16,10 +16,12 @@ const customerController = require("./src/customers/index.js");
 const adminAuthentication = require("./src/auth/adminAuthentication.js")
 const userController = require("./src/users/index.js");
 
-mongoose.connect('mongodb://localhost/' + process.env.MONGO_NAME);
+mongoose.connect('mongodb+srv://faber:qwerty123@cluster0-gx4g2.mongodb.net/' + process.env.MONGO_NAME + '?retryWrites=true'
+    , { useNewUrlParser: true }
+);
 
 app.use(morgan('dev'));
-app.use(express.json()); 
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(helmet())
@@ -33,7 +35,6 @@ app.use("/customers", customerController);
 app.use(adminAuthentication)
 app.use("/users", userController);
 
-// TODO:refactor
 app.use((req, res, next) => {
     const error = new Error("Not found :((((")
     error.status = 404
@@ -43,7 +44,7 @@ app.use((req, res, next) => {
 app.use((error, req, res, next) => {
     res.status(error.status || 500)
     res.json({
-        error : error.message
+        error: error.message
     })
 })
 
