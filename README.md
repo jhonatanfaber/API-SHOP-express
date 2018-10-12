@@ -30,7 +30,7 @@ Only Admins can create, update, delete and list other users. No Admins can do th
 ```
 GET /users
 POST /users
-DELETE /users
+DELETE /users/id
 UPDATE /users/id
 PATCH /users/id
 ```

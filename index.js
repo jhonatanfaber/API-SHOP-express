@@ -29,7 +29,7 @@ app.use(cors())
 
 app.use("/login", loginController);
 app.use(authorization);
-app.use(headers);
+//app.use(headers);
 app.use(output);
 app.use("/customers", customerController);
 app.use(adminAuthentication)
