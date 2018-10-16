@@ -41,7 +41,7 @@ PATCH /users/id
 GET /customers
 GET /customers/id
 POST /customers
-DELETE /customer
+DELETE /customer/id
 UPDATE /users/id
 ```
 
