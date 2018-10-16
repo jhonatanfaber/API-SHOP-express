@@ -7,13 +7,13 @@ module.exports = {
 
 function updateUser(req, res) {
     let id = req.params.id
-    UserModel.update({ id }, { $set: req.body, password: hashPassword(req.body.password) })
-        .then(response => {
-            return res.sendStatus(204)
-        })
-        .catch(error => {
-            res.sendStatus(400)
-        })
+    // new param: bool - if true, return the modified document rather than the original.
+    UserModel.findOneAndUpdate({ id }, { $set: req.body, password: hashPassword(req.body.password) }, { new: true }, (error, user) => {
+        if (error) {
+            return res.sendStatus(400)
+        }
+        return res.status(200).send(user);
+    })
 }
 
 function hashPassword(pass) {
