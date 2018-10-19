@@ -14,7 +14,7 @@ function signIn(req, res, next) {
         .then(response => {
             if (response.username == username && response.password == hashedPassword) {
                 let { name, username, id, admin } = response
-                let expiresInValue = 10
+                let expiresInValue = 3600 // expressed in seconds
                 let token = jwt.sign({ username }, "anypk", { expiresIn: expiresInValue });
                 return res.status(200).send({
                     name,
