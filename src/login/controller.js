@@ -14,13 +14,15 @@ function signIn(req, res, next) {
         .then(response => {
             if (response.username == username && response.password == hashedPassword) {
                 let { name, username, id, admin } = response
-                let token = jwt.sign({ username }, "anypk", { expiresIn: '24h' });
+                let expiresInValue = 10
+                let token = jwt.sign({ username }, "anypk", { expiresIn: expiresInValue });
                 return res.status(200).send({
                     name,
                     username,
                     id,
                     admin,
-                    token
+                    token,
+                    expiresIn : expiresInValue
                 });
             }
             return res.status(400).send("Invalid Credentials");
