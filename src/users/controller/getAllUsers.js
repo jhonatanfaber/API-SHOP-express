@@ -5,11 +5,11 @@ module.exports = {
 }
 
 function getAllUsers(req, res) {
-    UserModel.find()
+    UserModel.User.find()
         .then(response => {
             res.status(200).send(response);
         })
-        .catch(error => {
+        .catch(() => {
             res.sendStatus(404)
         })
 }

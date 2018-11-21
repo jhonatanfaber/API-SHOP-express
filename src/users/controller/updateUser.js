@@ -8,7 +8,7 @@ module.exports = {
 function updateUser(req, res) {
     let id = req.params.id
     // new param: bool - if true, return the modified document rather than the original.
-    UserModel.findOneAndUpdate({ id }, { $set: req.body, password: hashPassword(req.body.password) }, { new: true }, (error, user) => {
+    UserModel.User.findOneAndUpdate({ id }, { $set: req.body, password: hashPassword(req.body.password) }, { new: true }, (error, user) => {
         if (error) {
             return res.sendStatus(400)
         }
