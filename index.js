@@ -15,9 +15,10 @@ const output = require("./src/auth/secure-output.js");
 const customerController = require("./src/customers/index.js");
 const adminAuthentication = require("./src/auth/adminAuthentication.js")
 const userController = require("./src/users/index.js");
+const coinController = require("./src/coins/index.js");
 
 mongoose.connect(process.env.MONGO_URI + process.env.MONGO_NAME + '?retryWrites=true'
-    , { useNewUrlParser: true }
+, { useNewUrlParser: true }
 );
 
 app.use(morgan('dev'));
@@ -32,8 +33,10 @@ app.use(authorization);
 //app.use(headers);
 app.use(output);
 app.use("/customers", customerController);
+app.use("/coins", coinController);
 app.use(adminAuthentication)
 app.use("/users", userController);
+
 
 app.use((req, res, next) => {
     const error = new Error("Not found :((((")

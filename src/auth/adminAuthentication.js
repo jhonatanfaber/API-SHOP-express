@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
            if (!response.admin) return res.sendStatus(403)
             next()
         })
-        .catch(error => {
+        .catch(() => {
             return res.sendStatus(400)
         })
 }
