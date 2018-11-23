@@ -7,6 +7,7 @@ const status = require("./controller/updatePartiallyUserData")
 const remove = require("./controller/deleteUser");
 
 const newCard = require("./controller/insertNewCard")
+const removeCard = require("./controller/deleteCard")
 
 
 
@@ -16,6 +17,7 @@ router.put("/:id", update.updateUser)
 router.patch("/:id", status.updatePartiallyUserData)
 router.delete("/:id",remove.deleteUser)
 
-router.post("/:id", newCard.insertNewCard)
+router.post("/:id/card", newCard.insertNewCard)
+router.delete("/:userID/card/:cardID",removeCard.deleteCard)
 
 module.exports = router 

@@ -5,15 +5,13 @@ module.exports = {
 }
 
 function insertNewCard(req, res) {
-    let id = req.params.id
     let newCard = new UserModel.Card({
+        coinID: req.body.coinID,
         cardID: req.body.cardID,
         amount: req.body.amount,
         boughtDate: req.body.boughtDate,
-        coinID: req.body.coinID,
         usdBuyPrice: req.body.usdBuyPrice,
     })
-
     UserModel.User.findOne({ id: req.params.id })
         .then(user => {
             user.cards.push(newCard)
