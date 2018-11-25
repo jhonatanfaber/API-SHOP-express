@@ -6,6 +6,9 @@ let cardSchema = mongoose.Schema({
     boughtDate : String,
     coinID : String,
     usdBuyPrice : Number,
+    logo : String,
+    name : String,
+    symbol : String
 })
 
 let Card = mongoose.model('Card', cardSchema)

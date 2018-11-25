@@ -11,6 +11,9 @@ function insertNewCard(req, res) {
         amount: req.body.amount,
         boughtDate: req.body.boughtDate,
         usdBuyPrice: req.body.usdBuyPrice,
+        logo: req.body.logo,
+        name: req.body.name,
+        symbol: req.body.symbol,
     })
     UserModel.User.findOne({ id: req.params.id })
         .then(user => {
