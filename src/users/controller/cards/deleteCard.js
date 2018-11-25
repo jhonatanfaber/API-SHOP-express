@@ -1,4 +1,4 @@
-const UserModel = require("./../model")
+const UserModel = require("./../../model")
 
 module.exports = {
     deleteCard

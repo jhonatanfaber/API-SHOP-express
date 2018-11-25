@@ -9,7 +9,7 @@ function updateCustomer(req, res) {
         .then(response => {
             return res.sendStatus(204)
         })
-        .catch(error => {
+        .catch(() => {
             res.sendStatus(400)
         })
 }

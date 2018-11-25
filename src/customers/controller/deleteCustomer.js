@@ -13,7 +13,7 @@ function deleteCustomer(req, res) {
             return res.sendStatus(204);
             //return res.status(404).json({ Message: "No valid user ID" })
         })
-        .catch(error => {
+        .catch(() => {
             return res.sendStatus(400)
         })
 }

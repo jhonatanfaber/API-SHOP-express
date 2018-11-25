@@ -19,7 +19,6 @@ let userSchema = mongoose.Schema({
     admin : Boolean,
     cards : [ Card.schema ]
 })
-
 let User = mongoose.model('User', userSchema)
 
 module.exports = {

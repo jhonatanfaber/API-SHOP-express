@@ -10,7 +10,7 @@ function getCustomerByID(req, res) {
             if (user) return res.status(200).send(user)
             return res.status(404).json({ Message: "No valid user ID" })
         })
-        .catch(error => {
+        .catch(() => {
             return res.sendStatus(400)
         })
 }
