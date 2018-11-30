@@ -12,7 +12,7 @@ function createNewUser(req, res, next) {
         username: username,
         password: hashPassword(password),
         id: username + Date.now(),
-        admin: admin
+        admin: admin || false
     })
     user.save(((error,newUser) => {
         if (error) return res.sendStatus(404)

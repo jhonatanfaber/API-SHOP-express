@@ -28,6 +28,8 @@ app.use(bodyParser.json())
 app.use(helmet())
 app.use(cors())
 
+// should go in line 40, just for testing now!
+app.use("/users", userController);
 app.use("/login", loginController);
 app.use(authorization);
 //app.use(headers);
@@ -35,7 +37,6 @@ app.use(output);
 app.use("/customers", customerController);
 app.use("/coins", coinController);
 // app.use(adminAuthentication)
-app.use("/users", userController);
 
 
 app.use((req, res, next) => {
