@@ -14,10 +14,23 @@ function createNewUser(req, res, next) {
         id: username + Date.now(),
         admin: admin || false
     })
-    user.save(((error,newUser) => {
-        if (error) return res.sendStatus(404)
-        return res.status(201).json(newUser);
-    }))
+
+    UserModel.User.find({ username: user.username }, (error, user) => {
+        if (user.length) {
+            return res.status(409).send({ error: "Username already exists" });
+        }
+        user.save(((error, newUser) => {
+            if (error) return res.sendStatus(404)
+            return res.status(201).json(newUser);
+        }))
+    })
+
+
+
+}
+
+function checkIfUsernameExists(username) {
+
 }
 
 function hashPassword(password) {
