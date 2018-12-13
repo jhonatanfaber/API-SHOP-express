@@ -5,7 +5,7 @@ module.exports = {
     createNewUser
 }
 
-function createNewUser(req, res, next) {
+function createNewUser(req, res) {
     const { name, username, password, admin } = req.body
     let user = new UserModel.User({
         name: name,
@@ -15,8 +15,8 @@ function createNewUser(req, res, next) {
         admin: admin || false
     })
 
-    UserModel.User.find({ username: user.username }, (error, user) => {
-        if (user.length) {
+    UserModel.User.find({ username: req.body.username }, (error, dbUser) => {
+        if (dbUser.length) {
             return res.status(409).send({ error: "Username already exists" });
         }
         user.save(((error, newUser) => {
