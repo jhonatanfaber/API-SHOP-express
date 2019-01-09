@@ -17,6 +17,7 @@ let Card = mongoose.model('Card', cardSchema)
 let userSchema = mongoose.Schema({
     name : String,
     username : String,
+    email : String,
     password : String,
     id : String,
     admin : Boolean,

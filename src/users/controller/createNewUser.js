@@ -6,9 +6,10 @@ module.exports = {
 }
 
 function createNewUser(req, res) {
-    const { name, username, password, admin } = req.body
+    const { name, username, password, admin, email } = req.body
     let user = new UserModel.User({
         name: name,
+        email : email,
         username: username,
         password: hashPassword(password),
         id: username + Date.now(),
