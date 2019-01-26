@@ -9,14 +9,14 @@ function createNewUser(req, res) {
     const { name, username, password, admin, email } = req.body
     let user = new UserModel.User({
         name: name,
-        email : email,
+        email: email,
         username: username,
         password: hashPassword(password),
         id: username + Date.now(),
         admin: admin || false
     })
 
-    UserModel.User.find({ username: req.body.username }, (error, dbUser) => {
+    UserModel.User.find({ $or: [{ username: req.body.username }, { email: req.body.email }] }, (error, dbUser) => {
         if (dbUser.length) {
             return res.status(409).send({ error: "Username already exists" });
         }
