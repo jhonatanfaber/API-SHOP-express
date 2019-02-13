@@ -1,11 +1,12 @@
 const crypto = require('crypto');
-const UserModel = require('./../model');
+const jwt = require("jsonwebtoken");
+const UserModel = require("./../users/model")
 
 module.exports = {
-    createNewUser
+    signup
 }
 
-function createNewUser(req, res) {
+function signup(req, res) {
     const { name, username, password, admin, email } = req.body
     let user = new UserModel.User({
         name: name,
@@ -29,4 +30,4 @@ function createNewUser(req, res) {
 
 function hashPassword(password) {
     return crypto.createHash('sha256').update(password).digest('hex');
-}
+}    

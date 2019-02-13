@@ -9,6 +9,7 @@ const dotenv = require('dotenv');
 dotenv.load()
 
 const loginController = require("./src/login/index.js");
+const signupController = require("./src/signup/index.js");
 const authorization = require("./src/auth/authorization.js");
 const headers = require("./src/auth/secure-headers.js");
 const output = require("./src/auth/secure-output.js");
@@ -28,14 +29,15 @@ app.use(bodyParser.json())
 app.use(helmet())
 app.use(cors())
 
-// should go in line 40, just for testing now!
-app.use("/users", userController);
+
 app.use("/login", loginController);
+app.use("/signup", signupController);
 app.use(authorization);
 //app.use(headers);
 app.use(output);
 app.use("/customers", customerController);
 app.use("/coins", coinController);
+app.use("/users", userController);
 // app.use(adminAuthentication)
 
 
