@@ -14,7 +14,7 @@ function signup(req, res) {
         username: username,
         password: hashPassword(password),
         id: username + Date.now(),
-        admin: admin || false
+        admin: false
     })
 
     UserModel.User.find({ $or: [{ username: req.body.username }, { email: req.body.email }] }, (error, dbUser) => {

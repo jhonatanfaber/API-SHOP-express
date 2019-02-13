@@ -25,9 +25,9 @@ function signIn(req, res, next) {
                     expiresIn : expiresInValue
                 });
             }
-            return res.status(400).send("Invalid Credentials");
+            return res.status(401).send("Invalid Credentials");
         })
         .catch(error => {
-            return res.sendStatus(400)
+            return res.sendStatus(401)
         })
 }
