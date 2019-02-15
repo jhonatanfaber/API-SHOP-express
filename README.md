@@ -1,6 +1,8 @@
 # API SHOP
 
 #### Before Starting
+The .sample-env file serves as a guide for developers to know which environment variables the project needs, and also works for setting default variables when possible.
+
 Make sure you run setup.js to load local environment variables (node setup.js) and edit the .env file NOT the .sample-env.
 
 The script simply copies the contents from the .sample-env and creates a new file called .env 

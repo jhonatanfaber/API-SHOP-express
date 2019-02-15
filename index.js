@@ -10,6 +10,7 @@ dotenv.load()
 
 const loginController = require("./src/login/index.js");
 const signupController = require("./src/signup/index.js");
+const resetPasswordController = require("./src/resetPassword/index.js");
 const authorization = require("./src/auth/authorization.js");
 const headers = require("./src/auth/secure-headers.js");
 const output = require("./src/auth/secure-output.js");
@@ -32,6 +33,7 @@ app.use(cors())
 
 app.use("/login", loginController);
 app.use("/signup", signupController);
+app.use("/password", resetPasswordController);
 app.use(authorization);
 //app.use(headers);
 app.use(output);
