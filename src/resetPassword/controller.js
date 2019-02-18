@@ -1,6 +1,9 @@
 const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
 const UserModel = require("./../users/model")
+const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
+dotenv.load()
 
 module.exports = {
     resetPassword,
@@ -50,10 +53,42 @@ function forgotPassword(req, res) {
                 };
                 let expiresInValue = 3600 // expressed in seconds
                 let token = jwt.sign({ payload }, userPassword, { expiresIn: expiresInValue });
-                // este link de abajo se lo mando al correo del usuario
-                res.send('<a href="localhost:8080/reset_password?id=' + userID + '&token=' + token + '">Reset password</a>');
+
+                //email
+                let transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: process.env.EMAIL,
+                        pass: process.env.EMAIL_PASSWORD
+                    }
+                });
+
+                let mailOptions = {
+                    from: `"Cryptofolio Team" <${process.env.EMAIL}>`,
+                    to: req.body.email,
+                    subject: "Password Change Request",
+                    html: `
+                        <span> Please use the following link to 
+                            <a href=http://localhost:8080/reset_password?id=${userID}&token=${token}>reset your password</a> 
+                        </span> 
+                        
+                        <p> If you didn't request this password change, please feel free to ignore it</p> 
+                        <p> Do not hesitate to contact us if you have any questions at: 
+                            <span>cryptofolioteam@gmail.com</span> 
+                        </p> `
+                };
+
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                });
+
+                // res.send('');
             } else {
-                res.send("Email does not match with any user")
+                res.status(400).json("Email does not match with any user")
             }
             if (error) return res.sendStatus(404)
         })

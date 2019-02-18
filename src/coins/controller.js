@@ -1,4 +1,6 @@
 const axios = require("axios")
+const dotenv = require('dotenv');
+dotenv.load()
 
 module.exports = {
     getCoins
@@ -15,7 +17,7 @@ async function getCoins(req, res) {
 async function getCoinLogo() {
     await getCoinData()
     return new Promise(async (resolve) => {
-        const response = await axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + coinsID + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
+        const response = await axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + coinsID + "&CMC_PRO_API_KEY="+ process.env.COINMARKETCAP_APIKEY)
         coinData.forEach(coin => {
             for (const key of Object.keys(response.data.data)) {
                 if (coin.id == response.data.data[key].id) {
@@ -30,7 +32,7 @@ async function getCoinLogo() {
 
 async function getCoinData() {
     return new Promise(async (resolve) => {
-        const response = await axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
+        const response = await axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=" + process.env.COINMARKETCAP_APIKEY)
         coinData = response.data.data
         coinsID = response.data.data.map(coin => coin.id);
         resolve()
