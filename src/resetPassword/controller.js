@@ -53,47 +53,16 @@ function forgotPassword(req, res) {
                 };
                 let expiresInValue = 3600 // expressed in seconds
                 let token = jwt.sign({ payload }, userPassword, { expiresIn: expiresInValue });
+                sendEmail(req, userID, token)
 
-                //email
-                let transporter = nodemailer.createTransport({
-                    service: 'gmail',
-                    auth: {
-                        user: process.env.EMAIL,
-                        pass: process.env.EMAIL_PASSWORD
-                    }
-                });
-
-                let mailOptions = {
-                    from: `"Cryptofolio Team" <${process.env.EMAIL}>`,
-                    to: req.body.email,
-                    subject: "Password Change Request",
-                    html: `
-                        <span> Please use the following link to 
-                            <a href=http://localhost:8080/reset_password?id=${userID}&token=${token}>reset your password</a> 
-                        </span> 
-                        
-                        <p> If you didn't request this password change, please feel free to ignore it</p> 
-                        <p> Do not hesitate to contact us if you have any questions at: 
-                            <span>cryptofolioteam@gmail.com</span> 
-                        </p> `
-                };
-
-                transporter.sendMail(mailOptions, function (error, info) {
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log('Email sent: ' + info.response);
-                    }
-                });
-
-                // res.send('');
+                res.status(200).json("Email sent");
             } else {
-                res.status(400).json("Email does not match with any user")
+                res.status(404).json("Email does not match with any user")
             }
             if (error) return res.sendStatus(404)
         })
     } else {
-        res.send('Email address is missing.');
+        res.status(404).json('Email address is missing.');
     }
 }
 
@@ -110,4 +79,38 @@ function getUserData(id, res) {
         .catch(() => {
             return res.sendStatus(400)
         })
+}
+
+function sendEmail(req, userID, token) {
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.EMAIL_PASSWORD
+        }
+    });
+
+    let mailOptions = {
+        from: `"Cryptofolio Team" <${process.env.EMAIL}>`,
+        to: req.body.email,
+        subject: "Password Change Request",
+        html: `
+            <span> Please use the following link to 
+                <a href=http://localhost:8080/reset_password?id=${userID}&token=${token}>reset your password</a> 
+            </span> 
+            
+            <p> If you didn't request this password change, please feel free to ignore it</p> 
+            <p> Do not hesitate to contact us if you have any questions at: 
+                <span>${process.env.EMAIL}</span> 
+            </p> `
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+
 }
