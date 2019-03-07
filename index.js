@@ -39,8 +39,8 @@ app.use(authorization);
 app.use(output);
 app.use("/customers", customerController);
 app.use("/coins", coinController);
-app.use("/users", userController);
 // app.use(adminAuthentication)
+app.use("/users", userController);
 
 
 app.use((req, res, next) => {
