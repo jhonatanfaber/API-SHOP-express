@@ -20,7 +20,7 @@ const userController = require("./src/users/index.js");
 const coinController = require("./src/coins/index.js");
 
 mongoose.connect(process.env.MONGO_URI + process.env.MONGO_NAME + '?retryWrites=true'
-, { useNewUrlParser: true }
+    , { useNewUrlParser: true }
 );
 
 app.use(morgan('dev'));

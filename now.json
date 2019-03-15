@@ -1,7 +1,31 @@
 {
     "version": 2,
-    "name": "cryptofolio API ",
+    "name": "api-shop",
+    "alias" : "cryptofolio-API",
     "builds": [
-        { "src": "index.js", "use": "@now/node-server" }
+        {
+            "src": "index.js",
+            "use": "@now/node-server"
+        }
+    ],
+    "env": {
+        "MONGO_NAME": "@mongo_name",
+        "MONGO_URI": "@mongo_uri",
+        "PORT": "@port",
+        "EMAIL": "@email",
+        "EMAIL_PASSWORD": "@email_password",
+        "COINMARKETCAP_APIKEY": "@coinmarketcap_apikey",
+        "SENDGRID_API_KEY": "@sendgrid_api_key"
+    },
+    "routes": [
+        {
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+                "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
+            },
+            "src": "/.*",
+            "dest": "/index.js"
+        }
     ]
 }

@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
 const UserModel = require("./../users/model")
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 const dotenv = require('dotenv');
 dotenv.load()
 
@@ -82,35 +82,21 @@ function getUserData(id, res) {
 }
 
 function sendEmail(req, userID, token) {
-    let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.EMAIL,
-            pass: process.env.EMAIL_PASSWORD
-        }
-    });
-
-    let mailOptions = {
-        from: `"Cryptofolio Team" <${process.env.EMAIL}>`,
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const message = {
         to: req.body.email,
-        subject: "Password Change Request",
+        from: process.env.EMAIL,
+        subject: 'Password Change Request',
         html: `
-            <span> Please use the following link to 
+                <span> Please use the following link to 
                 <a href=http://localhost:8080/reset_password?id=${userID}&token=${token}>reset your password</a> 
-            </span> 
-            
-            <p> If you didn't request this password change, please feel free to ignore it</p> 
-            <p> Do not hesitate to contact us if you have any questions at: 
-                <span>${process.env.EMAIL}</span> 
-            </p> `
+                </span> 
+    
+                <p> If you didn't request this password change, please feel free to ignore it</p> 
+                <p> Do not hesitate to contact us if you have any questions at: 
+                    <span>${process.env.EMAIL}</span> 
+                </p> 
+            `
     };
-
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    });
-
+    sgMail.send(message);
 }
