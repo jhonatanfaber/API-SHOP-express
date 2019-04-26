@@ -1,12 +1,15 @@
 const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
 const UserModel = require("./../users/model")
+const axios = require('axios')
 
 module.exports = {
     signIn
 }
 
 function signIn(req, res, next) {
+   
+
     let username = req.body.username;
     let rawPassword = req.body.password;
     let hashedPassword = crypto.createHash('sha256').update(rawPassword).digest("hex")

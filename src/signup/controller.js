@@ -1,5 +1,4 @@
 const crypto = require('crypto');
-const jwt = require("jsonwebtoken");
 const UserModel = require("./../users/model")
 
 module.exports = {
@@ -14,7 +13,10 @@ function signup(req, res) {
         username: username,
         password: hashPassword(password),
         id: username + Date.now(),
-        admin: false
+        admin: false,
+        exchange : null,
+        apikey : null,
+        secret : null
     })
 
     UserModel.User.find({ $or: [{ username: req.body.username }, { email: req.body.email }] }, (error, dbUser) => {

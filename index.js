@@ -23,6 +23,10 @@ mongoose.connect(process.env.MONGO_URI + process.env.MONGO_NAME + '?retryWrites=
     , { useNewUrlParser: true }
 );
 
+app.get('/', async function (req, res) {
+    res.send('Cryptofolio API')
+})
+
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -44,7 +48,7 @@ app.use("/users", userController);
 
 
 app.use((req, res, next) => {
-    const error = new Error("Not found :((((")
+    const error = new Error("Page not found")
     error.status = 404
     next(error)
 })

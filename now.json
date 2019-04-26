@@ -9,13 +9,13 @@
         }
     ],
     "env": {
+        "SENDGRID_APIKEY": "@sendgrid_apikey",
         "MONGO_NAME": "@mongo_name",
         "MONGO_URI": "@mongo_uri",
         "PORT": "@port",
         "EMAIL": "@email",
         "EMAIL_PASSWORD": "@email_password",
-        "COINMARKETCAP_APIKEY": "@coinmarketcap_apikey",
-        "SENDGRID_API_KEY": "@sendgrid_api_key"
+        "COINMARKETCAP_APIKEY": "@coinmarketcap_apikey"
     },
     "routes": [
         {
