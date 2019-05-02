@@ -30,7 +30,7 @@ function hashText(text) {
 
 async function connectToBittrex(req, res) {
     let apiToken = req.headers["x-api-token"] || req.query.token || req.body.token;
-    let coinsData = null
+    let coinsData = await getCoinsData(apiToken)
     let exchangeData = null
     const nonce = Date.now().toString()
     let key = 'XXXX'
@@ -42,6 +42,34 @@ async function connectToBittrex(req, res) {
         .digest('hex');
 
     try {
+        const response = await axios.get(uri, {
+            headers: {
+                'apisign': signature,
+                'Content-Type': 'application/json'
+            }
+        })
+        exchangeData = [...response.data.result];
+
+    } catch (e) {
+        console.log('ERROR ****:   ' + e)
+    }
+    await removeCurrentCoinsFromDB(req, res)
+    addCoinToDB(exchangeData, coinsData, req, res)
+}
+
+function getCurrentDate() {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, "0");
+    let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    let yyyy = today.getFullYear();
+    today = yyyy + "-" + mm + "-" + dd;
+    return today
+}
+
+async function getCoinsData(apiToken) {
+
+    let coinsData = null
+    try {
         const response = await axios.get('http://localhost:3000/coins', {
             headers: {
                 'x-api-token': apiToken
@@ -51,22 +79,15 @@ async function connectToBittrex(req, res) {
     } catch (e) {
         console.log(e);
     }
+    return coinsData
+}
 
-    try {
-        const response = await axios.get(uri, {
-            headers: {
-                'apisign': signature,
-                'Content-Type': 'application/json'
-            }
-        })
-        exchangeData = [...response.data.result];
-    } catch (e) {
-        console.log('ERROR ****:   ' + e)
-    }
+function addCoinToDB(exchangeData, coinsData, req, res) {
+    console.log("2");
 
     exchangeData.forEach(exchange => {
         coinsData.forEach(coin => {
-            if (exchange.Currency == coin.symbol) {
+            if (exchange.Currency == coin.symbol && exchange.Balance > 0) {
 
                 let newCoinCard = {
                     coinID: coin.id,
@@ -76,13 +97,16 @@ async function connectToBittrex(req, res) {
                     usdBuyPrice: 1,
                     logo: coin.logo,
                     name: coin.name,
-                    symbol: exchange.Currency
+                    symbol: exchange.Currency,
+                    issuedBy: req.body.ex_name
                 }
 
                 UserModel.User.findOne({ id: req.params.id })
                     .then(user => {
                         user.cards.push(newCoinCard)
                         user.save()
+                        console.log("3");
+
                         return res.status(200).send(user)
                     })
                     .catch(() => {
@@ -93,13 +117,21 @@ async function connectToBittrex(req, res) {
     });
 }
 
-function getCurrentDate() {
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, "0");
-    let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    let yyyy = today.getFullYear();
-    today = yyyy + "-" + mm + "-" + dd;
-    return today
+function removeCurrentCoinsFromDB(req, res) {
+    return new Promise((resolve) => {
+        UserModel.User.findOne({ id: req.params.id })
+            .then(user => {
+                user.cards = user.cards.filter(card => card.issuedBy != req.body.ex_name)
+                user.save()
+                console.log("1");
+
+                resolve()
+                return res.sendStatus(204);
+            })
+            .catch(() => {
+                return res.sendStatus(400)
+            })
+    })
 }
 
 

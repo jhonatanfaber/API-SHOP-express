@@ -14,6 +14,7 @@ function insertNewCard(req, res) {
         logo: req.body.logo,
         name: req.body.name,
         symbol: req.body.symbol,
+        issuedBy: 'user'
     })
     UserModel.User.findOne({ id: req.params.id })
         .then(user => {

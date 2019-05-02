@@ -8,7 +8,8 @@ let cardSchema = mongoose.Schema({
     usdBuyPrice: Number,
     logo: String,
     name: String,
-    symbol: String
+    symbol: String,
+    issuedBy: String
 })
 let Card = mongoose.model('Card', cardSchema)
 
