@@ -83,8 +83,6 @@ async function getCoinsData(apiToken) {
 }
 
 function addCoinToDB(exchangeData, coinsData, req, res) {
-    console.log("2");
-
     exchangeData.forEach(exchange => {
         coinsData.forEach(coin => {
             if (exchange.Currency == coin.symbol && exchange.Balance > 0) {
@@ -105,8 +103,6 @@ function addCoinToDB(exchangeData, coinsData, req, res) {
                     .then(user => {
                         user.cards.push(newCoinCard)
                         user.save()
-                        console.log("3");
-
                         return res.status(200).send(user)
                     })
                     .catch(() => {
@@ -123,8 +119,6 @@ function removeCurrentCoinsFromDB(req, res) {
             .then(user => {
                 user.cards = user.cards.filter(card => card.issuedBy != req.body.ex_name)
                 user.save()
-                console.log("1");
-
                 resolve()
                 return res.sendStatus(204);
             })

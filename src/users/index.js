@@ -5,11 +5,10 @@ const newUser = require("./controller/createNewUser");
 const update = require("./controller/updateUser");
 const status = require("./controller/updatePartiallyUserData")
 const remove = require("./controller/deleteUser");
-
 const newCard = require("./controller/cards/insertNewCard")
 const removeCard = require("./controller/cards/deleteCard")
 const card = require("./controller/cards/getCards")
-
+const editCard = require("./controller/cards/updateCard")
 const adminAuthentication = require("./../auth/adminAuthentication.js")
 
 
@@ -19,6 +18,7 @@ router.patch("/:id", status.updatePartiallyUserData)
 
 router.get("/:id/cards", card.getCards)
 router.post("/:id/card", newCard.insertNewCard)
+router.patch("/:userID/card/:cardID", editCard.updateCard)
 router.delete("/:userID/card/:cardID",removeCard.deleteCard)
 
 router.use(adminAuthentication)
