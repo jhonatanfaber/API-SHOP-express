@@ -7,12 +7,12 @@ module.exports = {
 function updateCard(req, res) {
     let cardID = req.params.cardID
     let userID = req.params.userID
-
     UserModel.User.findOne({ id: userID })
         .then(user => {
             user.cards.forEach(element => {
                 if (element.cardID == cardID) {
                     element.usdBuyPrice = req.body.usdBuyPrice
+                    element.amount = req.body.amount
                 }
             })
             user.save()
