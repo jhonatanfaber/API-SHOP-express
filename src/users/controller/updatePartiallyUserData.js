@@ -13,7 +13,7 @@ function updatePartiallyUserData(req, res) {
     let raw_secret = req.body.secret
     let secret = hashText(raw_secret)
 
-    connectToBittrex(req, res, secret)
+    connectToBittrex(req, res)
 
     UserModel.User.update({ id }, { $set: req.body, exchange, apikey, secret }, { upsert: true }, (error) => {
         if (error) {
@@ -27,7 +27,7 @@ function hashText(text) {
     return crypto.createHash('sha256').update(text).digest('hex');
 }
 
-async function connectToBittrex(req, res, secretkey) {
+async function connectToBittrex(req, res) {
     let apiToken = req.headers["x-api-token"] || req.query.token || req.body.token;
     let coinsData = await getCoinsData(apiToken)
     let exchangeData = null
@@ -35,7 +35,7 @@ async function connectToBittrex(req, res, secretkey) {
     let key = req.body.apikey
     const uri = `https://api.bittrex.com/api/v1.1/account/getbalances?apikey=${key}&nonce=${nonce}`
 
-    const secret = secretkey
+    const secret = req.body.secret
     const signature = crypto.createHmac('sha512', secret)
         .update(uri)
         .digest('hex');
